@@ -1,0 +1,79 @@
+<h2 style="text-align: center; margin-top: 10px">Dein Profil</h2>
+<mat-card *ngIf="hasFetchedProfileData()" class="profile-card">
+  <mat-card-content>
+    <form *ngIf="requiredFieldsUsers" novalidate >
+      <br>
+      <br>
+      <mat-form-field >
+        <input
+          fxLayout
+          matInput
+          placeholder="{{ locale.get('placeholder-city-user-profile') }}"
+          type="text"
+          name="city"
+          [ngModel]="profile['city']"
+          [required]="requiredFieldsUsers['city']"
+          (blur)="saveFieldToDB($event.target)"
+          (keyup.enter)="saveFieldToDB($event.target)"
+        >
+      </mat-form-field>
+      <br>
+      <mat-form-field >
+        <input
+          fxLayout
+          matInput
+          placeholder="{{ locale.get('placeholder-street-user-profile') }}"
+          type="text"
+          name="street"
+          [ngModel]="profile['street']"
+          [required]="requiredFieldsUsers['street']"
+          (blur)="saveFieldToDB($event.target)"
+          (keyup.enter)="saveFieldToDB($event.target)"
+        >
+      </mat-form-field>
+      <br>
+      <mat-form-field >
+        <input
+          fxLayout
+          matInput
+          placeholder="{{ locale.get('placeholder-first-name-user-profile') }}"
+          type="text"
+          name="firstname"
+          [ngModel]="profile['firstname']"
+          [required]="requiredFieldsUsers['firstname']"
+          (blur)="saveFieldToDB($event.target)"
+          (keyup.enter)="saveFieldToDB($event.target)"
+        >
+      </mat-form-field>
+      <br>
+      <mat-form-field >
+        <input
+          fxLayout
+          matInput
+          placeholder="{{ locale.get('placeholder-last-name-user-profile') }}"
+          type="text"
+          name="lastname"
+          [ngModel]="profile['lastname']"
+          [required]="requiredFieldsUsers['lastname']"
+          (blur)="saveFieldToDB($event.target)"
+          (keyup.enter)="saveFieldToDB($event.target)"
+        >
+      </mat-form-field>
+      <br>
+      <mat-form-field >
+        <input
+          fxLayout
+          matInput
+          placeholder="{{ locale.get('placeholder-postal-user-profile') }}"
+          type="text"
+          name="postal"
+          [ngModel]="profile['postal']"
+          [required]="requiredFieldsUsers['postal']"
+          (blur)="saveFieldToDB($event.target)"
+          (keyup.enter)="saveFieldToDB($event.target)"
+        >
+      </mat-form-field>
+      <br>
+    </form>
+  </mat-card-content>
+</mat-card>

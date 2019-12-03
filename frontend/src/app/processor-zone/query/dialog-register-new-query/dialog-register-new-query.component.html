@@ -1,0 +1,10 @@
+<mat-tab-group>
+    <mat-tab label="Public Query">
+        <app-create-query (registered)="registeredQuery()"></app-create-query>
+    </mat-tab>
+    <mat-tab label="PIN Query">
+        <ng-template matTabContent>
+            <app-create-pin-query (registered)="registeredPinQuery($event)"></app-create-pin-query>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,38 @@
+mat-card-content > div {
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.row-three-icons {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+.quick-toggle-icon {
+    height: 3em;
+    width: auto;
+}
+
+.quick-toggle-icon-disabled {
+    opacity: 0.5;
+}
+
+.quick-toggle-automated-sales {
+    margin-top: 0.75em;
+    width: 3em;
+    height: auto;
+    border-radius: 3em;
+    padding: 0.5em;
+}
+
+.quick-toggle-automated-sales-enabled {
+    background-color: green;
+}
+
+.quick-toggle-automated-sales-disabled {
+    background-color: red;
+}
+
+app-toggle-datatype-sharing, app-toggle-issuer-business-sharing {
+    position: relative;
+}

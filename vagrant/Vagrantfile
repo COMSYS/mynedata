@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+Vagrant.configure("2") do |config|
+
+  # Define the VM containing mynedata. The primary property makes it the default machine when no machine name is specified.
+  config.vm.define "mynedata_platform", primary: true do |mynedata|
+    mynedata.vm.box = "ubuntu/disco64"
+    mynedata.vm.hostname = "mynedata-vagrant"
+    mynedata.vm.network "forwarded_port", guest: 14200, host: 14200
+    mynedata.vm.network "forwarded_port", guest: 14201, host: 14201
+    mynedata.vm.synced_folder "../", "/mynedata"
+    mynedata.vm.provision :shell, path: "../dev/setup_mynedata_environment.sh"
+  end
+
+  config.vm.network "public_network"
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.cpus = "1"
+     vb.memory = "4096"
+   end
+
+end

@@ -1,0 +1,11 @@
+table {
+	width: 100%;
+}
+
+tr.mat-row:hover {
+	background-color: rgba(130,130,130,0.47);
+}
+
+::ng-deep .mat-tab-label {
+	font-weight: bold;
+}

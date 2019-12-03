@@ -1,0 +1,9 @@
+img {
+	height: 3em;
+	width: 3em;
+	outline: none;
+}
+
+img:hover {
+	filter: drop-shadow(4px 4px 2px black);
+}

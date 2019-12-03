@@ -1,0 +1,9 @@
+.last-updated-text {
+    font-size: x-small;
+}
+
+mat-icon, .refetch-button {
+    margin: auto;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}

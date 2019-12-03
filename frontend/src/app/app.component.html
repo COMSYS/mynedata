@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" >
+    <app-header *ngIf="locale.isReady()"></app-header>
+    <mat-drawer-container *ngIf="locale.isReady()" style="">
+        <mat-drawer mode="side" opened *ngIf="showSidebar" id="sidebar-nav-drawer" role="navigation"><app-sidebar *ngIf="showSidebar"></app-sidebar></mat-drawer>
+        <mat-drawer-content>
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

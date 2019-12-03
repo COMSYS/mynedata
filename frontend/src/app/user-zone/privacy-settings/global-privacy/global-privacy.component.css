@@ -1,0 +1,12 @@
+.predefined-privacy-settings-slider-wrapper {
+	padding-bottom: 6em;
+	padding-top: 2em;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+::ng-deep .predefined-privacy-settings-slider-wrapper.custom-slider .ng5-slider .ng5-slider-tick-legend {
+	min-width: 8em !important;
+	display: block !important;
+}

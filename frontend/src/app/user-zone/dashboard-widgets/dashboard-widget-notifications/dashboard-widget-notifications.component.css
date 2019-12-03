@@ -1,0 +1,8 @@
+.notification-details {
+    margin-top: 0.25em;
+    margin-bottom: 1.25em;
+}
+
+mat-card-content {
+    font-size: smaller;
+}

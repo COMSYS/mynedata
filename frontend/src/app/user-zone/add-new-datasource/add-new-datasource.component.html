@@ -1,0 +1,71 @@
+<form
+  novalidate
+  (ngSubmit)="addDatasource()"
+  fxLayout="column"
+  fxLayoutAlign="space-around stretch"
+  [formGroup]="formGroupDatasourceParameters"
+  #addDataSourceForm="ngForm"
+  *ngIf="getAvailableDatasources()|async"
+>
+  <mat-form-field *ngIf="getAvailableDatasources()|async; let datasources">
+    <mat-select
+      placeholder="Choose Datasource"
+      required
+      formControlName="dataSource"
+      name="dataSource"
+      (selectionChange)="hasChangedDatasourceSelection = true;"
+    >
+      <mat-option
+        *ngFor="let datasource of datasources"
+        [value]="datasource"
+        (click)="selectDatasource(datasource)"
+      >
+        {{ datasource.displayed_name }}
+      </mat-option>
+      <mat-option
+        *ngIf="datasources.length === 0"
+        disabled
+      >
+        {{print('add-datasource-no-further-datasource-available')}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-label for="granularityFields" fxLayout="">{{ print('add-datasource-granularity-label') }}</mat-label>
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" id="granularityFields">
+    <div fxLayout="">{{ print('add-datasource-granularity-time-scales-preceding-word-for-every') }}</div>
+    <input
+      matInput
+      placeholder="{{ print('add-datasource-granularity-frequency-placeholder') }}"
+      type="number"
+      name="frequency"
+      required
+      min="1"
+      fxLayout=""
+      class="text-right"
+      formControlName="frequency"
+    >
+    <mat-form-field>
+      <mat-select
+        placeholder="{{ print('add-datasource-granularity-choose-time-scale-placeholder') }}"
+        required
+        name="timeScale"
+        formControlName="unitOfTime"
+      >
+        <mat-option *ngFor="let scale of granularityConfig['availableScales']" [value]="scale.meaning">
+          {{ getTimeScaleAsText(scale.localeRef) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button
+    *ngIf="!hideAddButton"
+    mat-raised-button
+    [disabled]="!formGroupDatasourceParameters.valid"
+    color="accent"
+    fxFill
+    type="submit"
+  >
+    {{ print('add-datasource-submit-button-text') }}
+  </button>
+</form>

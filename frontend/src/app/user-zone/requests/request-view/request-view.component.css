@@ -1,0 +1,57 @@
+img.icon {
+	height: 1.5em;
+	width: auto;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+}
+
+div.right {
+	float: right;
+}
+
+div.left {
+	float: left;
+}
+
+img.logo {
+	height: 8em;
+	width: auto;
+	max-width: 100% !important;
+}
+
+span.underline {
+	text-decoration: underline;
+}
+
+table {
+	overflow: hidden;
+	table-layout: fixed;
+	overflow-wrap: break-spaces !important;
+}
+
+td:nth-of-type(1) {
+	display: table-cell;
+	width: 8em !important;
+	vertical-align: top;
+}
+
+td {
+	overflow-wrap: break-spaces !important;
+}
+
+.issuer-name {
+	font-weight: bold;
+}
+
+.center-content {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.intro-container {
+	width: 100%;
+}
+
+#access-time-icon {
+	margin-right: 0.5em;
+}

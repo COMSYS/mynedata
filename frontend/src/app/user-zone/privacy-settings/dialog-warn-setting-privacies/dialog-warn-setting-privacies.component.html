@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p>{{print('privacy-settings-accept-overwrite-of-custom-privacies-text')}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">{{print('yes')}}</button>
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>{{print('no')}}</button>
+</div>

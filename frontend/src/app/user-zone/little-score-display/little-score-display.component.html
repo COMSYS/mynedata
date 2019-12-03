@@ -1,0 +1,13 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch">
+  <div fxLayout="column" fxLayoutAlign="space-evenly center">
+    <div>{{printScore()}}</div>
+    <div>{{printScoreName()}}</div>
+  </div>
+  <div class="header-spacer"></div>
+  <div fxLayout="column" fxLayoutAlign="space-evenly center" class="last-updated-text mat-small">
+    <div><a class="refetch-button mat-small" [matTooltip]="locale.get('score-display-update-button-tooltip-text')" (click)="fetchScore()"><mat-icon>replay</mat-icon></a></div>
+    <div class="bold">{{locale.get('score-display-last-updated-text')}}:</div>
+    <div class="mat-small bold">{{showLastUpdated()}}</div>
+  </div>
+</div>
+

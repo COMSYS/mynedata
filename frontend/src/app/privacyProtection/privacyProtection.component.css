@@ -1,0 +1,47 @@
+html *
+{
+   font-family: sans-serif !important;
+}
+
+p 
+{
+	margin-right:10px;
+	margin-left:10px;
+}
+h1 
+{
+	margin-right:10px;
+	margin-left:10px;
+}
+h2
+{
+	margin-right:10px;
+	margin-left:10px;
+}
+.centeredText
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgba(191, 191, 191, 0.5);
+	width:900px;
+	text-align:center;
+	margin: 20px auto;
+}
+.centeredTable
+{
+	width:900px;
+	text-align:center;	
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+.exampleBox
+{
+	border-style: solid;
+	border-color: rgba(191, 191, 191, 0.5);
+	width:900px;
+	margin: 0 auto;
+}
+
+tr.markedBorder {
+  border:solid;
+}

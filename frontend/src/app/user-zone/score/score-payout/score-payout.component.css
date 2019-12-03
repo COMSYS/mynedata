@@ -1,0 +1,40 @@
+.score-icon {
+	width: 4em;
+	height: auto;
+}
+
+.component-container {
+	min-width: 500px;
+}
+
+.icon-way-of-payout {
+	max-width: 3em;
+	height: auto;
+	margin-right: 2em;
+}
+
+.container-payout.money {
+
+}
+
+.container-payout {
+	background-color: white;
+	cursor: pointer;
+}
+
+.icon-service-provider {
+	height: 2em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.container-payout > div {
+	margin: .25em 0 .25em 0;
+}
+
+.container-payout > div:first-of-type {
+	font-weight: bold;
+}
+.container-payout > div:nth-of-type(2) {
+	font-weight: lighter;
+}

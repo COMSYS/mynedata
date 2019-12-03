@@ -1,0 +1,26 @@
+<mat-card class="login-card">
+  <mat-card-header>
+    <mat-card-title>{{ locale.get('title-form-login-processor') }}</mat-card-title>
+  </mat-card-header>
+  <form novalidate #loginProcessor="ngForm" (ngSubmit)="login(loginProcessor.value)">
+    <mat-card-content>
+      <table cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="{{ locale.get('placeholder-name-form-login-processor') }}" name="username" required ngModel="">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="{{ locale.get('placeholder-password-form-login-processor') }}" type="password" name="password" required ngModel="">
+          </mat-form-field></td>
+        </tr></table>
+    </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" id="login-button" [disabled]="!loginProcessor.valid">{{ locale.get('login-button-login-processor') }}</button>
+    <button mat-raised-button color="accent" id="switch-role-button" routerLink="/login/user">{{ locale.get('switch-role-login-processor') }}</button>
+  </mat-card-actions>
+  </form>
+</mat-card>

@@ -1,0 +1,12 @@
+.register-card {
+    margin: 2em auto;
+    width: fit-content;
+}
+
+.mat-form-field {
+	display: unset;
+}
+
+#register-button {
+    width: 100%;
+}

@@ -1,0 +1,49 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+  <h1>pay out [money]€</h1>
+  <div>
+    You can have the money transferred to your Debit, PayPal or Bitcoin Account.
+  </div>
+
+  <mat-radio-group [(ngModel)]="chosenPayoutVendor">
+    <div class="mynedata-bordered" fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex="15"><mat-radio-button value="1"></mat-radio-button></div>
+      <div>
+        <div fxLayout="column" fxLayoutAlign="space-around start">
+          <div class="bold">Send to Bank Account</div>
+          <div><a>add bank account</a></div>
+        </div>
+      </div>
+      <div class="fill-remaining-space"></div>
+      <div><img class="vendor-logo" src="../../../../../assets/common/icon-sepa.png" alt="Logo of SEPA"></div>
+    </div>
+
+    <div class="mynedata-bordered" fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex="15"><mat-radio-button value="2"></mat-radio-button></div>
+      <div>
+        <div fxLayout="column" fxLayoutAlign="space-around start">
+          <div class="bold">PayPal</div>
+          <div><a>add paypal account</a></div>
+        </div>
+      </div>
+      <div class="fill-remaining-space"></div>
+      <div><img class="vendor-logo" src="../../../../../assets/common/icon-paypal.png" alt="Logo of SEPA"></div>
+    </div>
+
+    <div>
+      <div class="mynedata-bordered" fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="15"><mat-radio-button value="3"></mat-radio-button></div>
+        <div>
+          <div fxLayout="column" fxLayoutAlign="space-around start">
+            <div class="bold">Bitcoins</div>
+            <div><a>add bitcoin account</a></div>
+          </div>
+        </div>
+        <div class="fill-remaining-space"></div>
+        <div><img class="vendor-logo" src="../../../../../assets/common/icon-bitcoin-cash.png" alt="Logo of SEPA"></div>
+      </div>
+    </div>
+
+  </mat-radio-group>
+
+  <button mat-raised-button color="accent" [disabled]="!chosenPayoutVendor">transfer money</button>
+</div>

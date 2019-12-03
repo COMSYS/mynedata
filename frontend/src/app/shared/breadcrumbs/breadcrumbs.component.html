@@ -1,0 +1,8 @@
+<mat-toolbar color="primary" class="breadcrumbs-bar">
+  <div>
+    <span *ngFor="let crumb of getCrumbs(); let last = last">
+      <a  [routerLink]="createRouterLinkObject(crumb.link)">{{ crumb.path }}</a>
+      <span *ngIf="!last">{{ locale.get('breadcrumbs-divider') }}</span>
+    </span>
+  </div>
+</mat-toolbar>

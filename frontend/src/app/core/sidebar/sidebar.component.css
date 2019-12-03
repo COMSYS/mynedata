@@ -1,0 +1,41 @@
+.sidebar-nav-links-list {
+    list-style: none inside;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-nav-links-list > li {
+    text-align: center;
+    color: inherit !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    outline: none;
+    padding-top: .5em;
+    font-size: larger;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.sidebar-nav-links-list .sidebar-nav-links-list-item > .sidebar-nav-links-list-item-icon-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 4.5em;
+    height: auto;
+}
+
+.sidebar-nav-links-list-item-icon-wrapper > img {
+    width: 100%;
+    height: auto;
+}
+
+.routerlink-active {
+	background-color: #c9d59d;
+}
+
+.sidebar-nav-links-list > li:hover {
+	background-color: #d2d6c1;
+}
+
+hr.mynedata-horizontal-divider {
+	margin: 0 !important;
+}

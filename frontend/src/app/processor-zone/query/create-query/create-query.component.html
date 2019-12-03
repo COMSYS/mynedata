@@ -1,0 +1,82 @@
+<form [formGroup]="formCreateQuery">
+  <div fxLayout="column" fxLayoutAlign="space-around stretch" >
+    <mat-form-field>
+      <input matInput [placeholder]="'TITLE'" formControlName="title">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="print('register-query-form-placeholder-query-string')" formControlName="queryString">
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+      <mat-form-field fxFlex="49">
+        <input matInput [placeholder]="print('register-query-form-placeholder-reward')" formControlName="reward" type="number">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <input matInput [placeholder]="print('register-query-form-placeholder-granularity')" formControlName="granularity" type="number">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+      <mat-form-field fxFlex="49">
+        <input matInput [placeholder]="print('register-query-form-placeholder-min-amount-users')" formControlName="minAmountOfParticipatingUsers" type="number">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <input matInput [placeholder]="print('register-query-form-placeholder-max-privacy')" formControlName="maximumPrivacy" type="number">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+      <mat-form-field fxFlex="49">
+        <textarea matInput placeholder="DESCRIPTION" formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <textarea matInput placeholder="GOAL_DESCRIPTION" formControlName="goalDescription"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+      <mat-form-field fxFlex="49">
+        <textarea matInput placeholder="LOGO_URL" formControlName="logoUrl"></textarea>
+      </mat-form-field>
+
+      <div class="url-preview" fxFlex="49" fxLayout="row" fxLayoutAlign="center center">
+        <ng-container *ngIf="formCreateQuery.controls['logoUrl'].value as logoUrl">
+          <img [src]="logoUrl">
+        </ng-container>
+      </div>
+    </div>
+
+    <mat-label for="intervalTimeArea">{{print('register-query-form-label-interval-time')}}</mat-label>
+    <div formGroupName="intervalTime" fxLayout="row" fxLayoutAlign="space-evenly center" id="intervalTimeArea">
+      <mat-form-field fxFlex="49">
+        <input matInput [matDatepicker]="intervalStart" [placeholder]="print('register-query-form-placeholder-interval-time-start')" formControlName="start">
+        <mat-datepicker-toggle matSuffix [for]="intervalStart"></mat-datepicker-toggle>
+        <mat-datepicker #intervalStart startView="year" (monthSelected)="monthSelected($event, intervalStart)"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <input matInput [matDatepicker]="intervalEnd" [placeholder]="print('register-query-form-placeholder-interval-time-end')" [min]="intervalStart._datepickerInput.value" formControlName="end">
+        <mat-datepicker-toggle matSuffix [for]="intervalEnd"></mat-datepicker-toggle>
+        <mat-datepicker #intervalEnd startView="year" (monthSelected)="monthSelected($event, intervalEnd, false)"></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <mat-label for="consentTimeArea">{{print('register-query-form-label-consent-time')}}</mat-label>
+    <div formGroupName="consentTime" fxLayout="row" fxLayoutAlign="space-evenly center" id="consentTimeArea">
+      <mat-form-field fxFlex="49">
+        <input matInput [matDatepicker]="consentStart" [placeholder]="print('register-query-form-placeholder-consent-time-start')" [min]="getToday()" formControlName="start">
+        <mat-datepicker-toggle matSuffix [for]="consentStart"></mat-datepicker-toggle>
+        <mat-datepicker #consentStart startView="year" (monthSelected)="monthSelected($event, consentStart)"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <input matInput [matDatepicker]="consentEnd" [placeholder]="print('register-query-form-placeholder-consent-time-end')" [min]="consentStart._datepickerInput.value" formControlName="end">
+        <mat-datepicker-toggle matSuffix [for]="consentEnd"></mat-datepicker-toggle>
+        <mat-datepicker #consentEnd startView="year" (monthSelected)="monthSelected($event, consentEnd, false)"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button [disabled]="!formCreateQuery.valid" (click)="sendForm()">{{print('register-query-form-button-register-query')}}</button>
+  </div>
+</form>

@@ -1,0 +1,75 @@
+.dashboard-widget-card {
+    width: 300px;
+    height: 325px;
+    float: left;
+    margin: .75em;
+    position: relative;
+}
+
+.dashboard-widget-card > mat-card-actions {
+    position: absolute;
+    bottom: 1.5em;
+    left: 1.5em;
+    right: 1.5em;
+}
+
+.dashboard-widget-card mat-card-title {
+    font-size: large;
+}
+
+.dashboard-widget-card mat-card-content {
+    text-align: center;
+}
+
+.black {
+    background-color: black;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+#privacy-as-color {
+    width: 3em;
+    height: 3em;
+    border-radius: 1.5em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+}
+
+.privacy-as-color {
+    width: 3em;
+    height: 3em;
+    border-radius: 1.5em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+}
+
+img.widget-icon {
+    height: 2em;
+    width: auto;
+    margin-right: 1em;
+}
+
+mat-card-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+mat-card-header {
+    background-color: white;
+}

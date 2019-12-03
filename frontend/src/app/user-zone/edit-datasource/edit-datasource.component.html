@@ -1,0 +1,57 @@
+<form
+  novalidate
+  (ngSubmit)="editDatasource()"
+  fxLayout="column"
+  fxLayoutAlign="space-around stretch"
+  [formGroup]="formGroupDatasourceParameters"
+  #addDataSourceForm="ngForm"
+>
+  <mat-label class="bolder">{{ print('add-datasource-granularity-label') }}</mat-label>
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" id="granularityFields">
+    <div fxLayout="">{{ print('add-datasource-granularity-time-scales-preceding-word-for-every') }}</div>
+    <input
+      matInput
+      placeholder="{{ print('add-datasource-granularity-frequency-placeholder') }}"
+      type="number"
+      name="frequency"
+      required
+      min="1"
+      fxLayout=""
+      class="text-right"
+      formControlName="frequency"
+    >
+    <mat-form-field>
+      <mat-select
+        placeholder="{{ print('add-datasource-granularity-choose-time-scale-placeholder') }}"
+        required
+        name="timeScale"
+        formControlName="unitOfTime"
+      >
+        <mat-option *ngFor="let scale of granularityConfig.availableScales" [value]="scale.meaning">
+          {{ getTimeScaleAsText(scale.localeRef) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-label class="bolder">{{ print('privacy-settings-link-text-sidenav') }}</mat-label>
+  <app-datatype-row
+    *ngFor="let dataType of getDataTypeObjects(); first as isFirst"
+    [datatype]="dataType"
+    [parentFormGroup]="formGroupDatasourceParameters"
+    [childFormControlName]="'dt_' + dataType.id"
+    [showLegends]="isFirst"
+    [refresh-slider]="afterDialogOpenEmitter"
+    useInEditDatasource="true"
+    [defaultPrivacy]="getDefaultValueForDataType(dataType.id)"
+  ></app-datatype-row>
+  <button
+    mat-raised-button
+    [disabled]="!formGroupDatasourceParameters.valid || addDataSourceForm.pristine"
+    color="accent"
+    fxFill
+    type="submit"
+  >
+    {{ print('data-management-component-edit-datasource-submit-button-text') }}
+  </button>
+</form>
+

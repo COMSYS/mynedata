@@ -1,0 +1,1516 @@
+swagger: '2.0'
+info:
+  title: Prototype data API
+  version: "0.2"
+consumes:
+  - application/json
+produces:
+  - application/json
+basePath: /api/v2
+schemes:
+  [http]
+paths:
+### End Users(Data producers) ###
+
+  /user/{username}/register:
+    post:
+      operationId: lib.api.apicalls.register_user
+      summary: Registers new user with received Username and Password
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: user_data
+          in: body
+          schema:
+             $ref: '#/definitions/user_data'
+      responses:
+        200:
+          description: successfully registered user
+          schema:
+            type: string
+    patch:
+        operationId: lib.api.apicalls.update_user
+        summary: Updates user information
+        parameters:
+          - $ref: '#/parameters/usernameParam'
+          - name: user_data
+            in: body
+            schema:
+               $ref: '#/definitions/user_data'
+        responses:
+          200:
+            description: successfully updated user information
+            schema:
+              type: string
+
+  /user/{username}/unregister:
+    post:
+      operationId: lib.api.apicalls.unregister_user
+      summary: Registers new user with received Username and Password
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: passw
+          in: body
+          schema:
+            $ref: '#/definitions/passw'
+      responses:
+        200:
+          description: successfully unregistered user
+          schema:
+            type: string
+
+  /user/{username}/login:
+    post:
+      operationId: lib.api.apicalls.login_user
+      summary: Logs user in and provides token for authentication
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: passw
+          in: body
+          schema:
+            $ref: '#/definitions/passw'
+      responses:
+        200:
+          description: provides token for user
+          schema:
+            type: object
+            properties:
+              mynedata-token:
+                type: string
+
+  /user/{username}/logout:
+    post:
+      operationId: lib.api.apicalls.logout_user
+      summary: logs out user and invalidates the token
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: successfully logged out user
+          schema:
+            type: string
+
+  /user/{username}/profile:
+    get:
+      operationId: lib.api.apicalls.get_profile_user
+      summary: retrieve personal information of user
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: returns user's personal information
+          schema:
+            $ref: '#/definitions/user_data'
+
+  /data_sources:
+    get:
+      operationId: lib.api.apicalls.list_available_data_sources
+      summary: list all available data sources
+      responses:
+        200:
+          description: returns all available data sources
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/available_data_source'
+
+  /data_source/{source_type}/{source_id}:
+    post:
+      operationId: lib.api.apicalls.add_available_data_source
+      summary: "debug only: add a data source to available data sources"
+      parameters:
+        - $ref: '#/parameters/sourceTypeParam'
+        - $ref: '#/parameters/sourceParam'
+      responses:
+        200:
+          description: success
+
+  /user/{username}/data_sources/{detail}:
+    get:
+      operationId: lib.api.apicalls.list_data_sources
+      summary: List all data sources registered to the user
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/detailParam'
+      responses:
+        200:
+          description: Returns all data sources registered to the user
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/data_source'
+
+  /user/{username}/data_source/{source_id}:
+    get:
+      operationId: lib.api.apicalls.get_data_source_information
+      summary: Get stored user specific information/settings for the registered data source
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+      responses:
+        200:
+          description: Returns information and settings about a specific data source registered to the user
+          schema:
+            $ref: '#/definitions/data_source'
+    post:
+      operationId: lib.api.apicalls.register_data_source
+      summary: Register a new gateway
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+        - name: parameters
+          in: body
+          schema:
+            $ref: '#/definitions/data_source_parameters'
+      responses:
+        200:
+          description: Returns success
+          schema:
+            type: string
+    delete:
+      summary: Delete an existing data source registered to the user and all data
+      operationId: lib.api.apicalls.remove_data_source
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+      responses:
+        200:
+          description: Deleting data source and according data was successful
+          schema:
+            type: string
+
+  /user/{username}/data_source/{source_id}/privacy:
+    get:
+      summary: Get current privacy setting for user and given data source
+      operationId: lib.api.apicalls.get_data_source_privacy
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+      responses:
+        200:
+          description: return privacy settings (privacy levels)
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                attribute:
+                  type: string
+                label:
+                  type: string
+                level:
+                  type: integer
+    patch:
+      operationId: lib.api.apicalls.set_data_source_privacy
+      summary: update the user's privacy setting for a certain data source
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+        - name: data_source_privacy
+          in: body
+          schema:
+            $ref: '#/definitions/data_source_privacy'
+      responses:
+        200:
+          description: updating user privacy settings was successful
+          schema:
+            type: string
+
+  /user/{username}/data_source_privacy:
+    get:
+      summary: Get current privacy settings for user and all data sources
+      operationId: lib.api.apicalls.get_data_source_privacy_user
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: return privacy settings for each data source and attribute
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                data_source:
+                  type: integer
+                attribute:
+                  type: string
+                label:
+                  type: string
+                level:
+                  type: integer
+                explicitconsent:
+                  type: boolean
+    patch:
+      operationId: lib.api.apicalls.set_data_source_privacy_user
+      summary: update the user's privacy level with the same value for all data sources
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: privacy_setting
+          in: body
+          schema:
+            $ref: '#/definitions/data_source_privacy_level'
+      responses:
+        200:
+          description: updating user privacy settings was successful
+          schema:
+            type: string
+
+  /user/{username}/default_privacy:
+    get:
+      summary: Get current default privacy settings for user and all labels
+      operationId: lib.api.apicalls.get_default_privacy_user
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: return privacy settings for each label
+          schema:
+            type: string
+    patch:
+      operationId: lib.api.apicalls.set_default_privacy_user
+      summary: update the user's privacy default level for one or more labels
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: default_privacy
+          in: body
+          schema:
+            $ref: '#/definitions/default_privacy'
+      responses:
+        200:
+          description: updating user privacy settings was successful
+          schema:
+            type: string
+
+  /user/{username}/data_source/{source_id}/granularity:
+    get:
+      summary: Get current upload granularity settings for user and given data source
+      operationId: lib.api.apicalls.get_data_source_granularity
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+      responses:
+        200:
+          description: return granularity setting (time interval)
+          schema:
+            type: number
+            format: integer
+    patch:
+      operationId: lib.api.apicalls.set_data_source_granularity
+      summary: update the user's privacy setting for a certain data source
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+        - name: granularity_setting
+          in: body
+          schema:
+            $ref: '#/definitions/upload_granularity'
+      responses:
+        200:
+          description: updating user granularity settings was successful
+          schema:
+            type: string
+
+  /user/{username}/data_source/{source_id}/access_token:
+    get:
+      summary: Get current access token for user and given data source
+      operationId: lib.api.apicalls.get_data_source_token
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+      responses:
+        200:
+          description: return current access token
+          schema:
+            $ref: '#/definitions/access_token'
+    patch:
+      operationId: lib.api.apicalls.set_data_source_token
+      summary: update the user's access token for a certain data source
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceParam'
+        - name: access_token
+          in: body
+          schema:
+            $ref: '#/definitions/access_token'
+      responses:
+        200:
+          description: setting access token was successful
+          schema:
+            type: string
+
+### Data Processors ###
+  /processor/{username}/register:
+    post:
+      operationId: lib.api.apicalls.register_processor
+      summary: Registers new processor with received Username and Password
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: passw
+          in: body
+          schema:
+             $ref: '#/definitions/passw'
+      responses:
+        200:
+          description: successfully registered processor
+          schema:
+            type: string
+
+  /processor/{username}/unregister:
+    post:
+      operationId: lib.api.apicalls.unregister_processor
+      summary: Registers new user with received Username and Password
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: passw
+          in: body
+          schema:
+            $ref: '#/definitions/passw'
+      responses:
+        200:
+          description: successfully unregistered processor
+          schema:
+            type: string
+
+  /processor/{username}/login:
+    post:
+      operationId: lib.api.apicalls.login_processor
+      summary: Logs processor in and provides token for authentication
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: passw
+          in: body
+          schema:
+            $ref: '#/definitions/passw'
+      responses:
+        200:
+          description: provides token for processor
+          schema:
+            type: string
+
+  /processor/{username}/logout:
+    post:
+      operationId: lib.api.apicalls.logout_processor
+      summary: logs out user and invalidates the token
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: successfully logged out processor
+          schema:
+            type: string
+
+  /processor/{username}/profile:
+    get:
+      operationId: lib.api.apicalls.get_processor_profile
+      summary: retrieve personal information of procoessor
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: returns processor profile
+          schema:
+            $ref: '#/definitions/processor_profile'
+    post:
+      operationId: lib.api.apicalls.set_profile_processor
+      summary: update the processor's personal information
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: processor_profile
+          in: body
+          schema:
+            $ref: '#/definitions/processor_profile'
+      responses:
+        200:
+          description: updating processor profile was successful
+          schema:
+            type: string
+
+### Data Analysis Management ###
+  /processor/{username}/query:
+    post:
+      summary: processor sends query according to Jan Bruckners interface description and the token
+      operationId: lib.api.apicalls.register_query
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: query_request
+          in: body
+          schema:
+            $ref: '#/definitions/query_request'
+      responses:
+        200:
+          description: Returns the query reply according to Jan Bruckners descrpition
+          schema:
+            $ref: '#/definitions/query_reply'
+
+  /processor/{username}/check_query:
+    post:
+      summary: check if the query is valid
+      operationId: lib.api.apicalls.check_query
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: query
+          in: body
+          schema:
+            type: object
+            required:
+              - query
+            properties:
+              query:
+                type: string
+      responses:
+        200:
+          description: Returns True if the query is valid
+          schema:
+            type: boolean
+
+  /processor/{username}/query_info/{query_id}:
+    get:
+      summary: processor gets query information including state and, if available, result
+      operationId: lib.api.apicalls.get_proc_query
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/query_id'
+        - $ref: '#/parameters/debugComputeAdhocParam'
+      responses:
+        200:
+          description: Returns the query
+          schema:
+            $ref: '#/definitions/query_object'
+    post:
+      summary: processor transmits the transaction_id and gets the result of the query, if there is one
+      operationId: lib.api.apicalls.get_proc_query_tid
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/query_id'
+        - name: transaction_id
+          in: body
+          schema:
+            type: string
+      responses:
+        200:
+          description: Returns the query
+          schema:
+            $ref: '#/definitions/query_object'
+
+  /processor/{username}/dummypay/{query_id}:
+    post:
+      summary: sets payment state to true for query DUMMY CALL
+      operationId: lib.api.apicalls.set_payment_state
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/query_id'
+      responses:
+        200:
+          description: Returns the query
+          schema:
+            $ref: '#/definitions/query_object'
+
+  /processor/{username}/pin_query:
+    post:
+      summary: processor sends pin query and the token
+      operationId: lib.api.apicalls.register_pin_query
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: pin_query_request
+          in: body
+          schema:
+            $ref: '#/definitions/pin_query_request'
+      responses:
+        200:
+          description: Returns the query reply including response information with session_id and session_pin
+          schema:
+            $ref: '#/definitions/pin_query_request_reply'
+
+  /processor/{username}/pin_query/{query_id}:
+    get:
+      summary: processor gets query information including state and, if available, result
+      operationId: lib.api.apicalls.get_proc_pin_query
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/query_id'
+      responses:
+        200:
+          description: Returns the query
+          schema:
+            $ref: '#/definitions/pin_query_object'
+
+  /processor/{username}/query/{state}:
+    get:
+      summary: processor gets query information including state and, if available, result
+      operationId: lib.api.apicalls.list_proc_queries
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/stateParam'
+      responses:
+        200:
+          description: returns the queries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/query_object'
+
+  /user/{username}/data/{source_type}:
+    post:
+      summary: Authenticated data source uploads new data on behalf of the user
+      description: >
+        Authenticated data source uploads data. Data has to be in the correct format which varies depending on data source
+        type. Please refer to the documentation for further info. An example data string for an openhab sensor reading is
+        provided below.
+      operationId: lib.api.apicalls.store_data
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceTypeParam'
+        - name: data
+          in: body
+          schema:
+            $ref: '#/definitions/data'
+      responses:
+        200:
+          description: Successful upload of data
+          schema:
+            type: string
+    get:
+      summary: Authenticated data source get data
+      description: >
+        Get the data of the data source in the requested time interval for the user
+      operationId: lib.api.apicalls.get_data
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceTypeParam'
+        - in: query
+          name: interval_begin
+          required: true
+          type: integer
+        - in: query
+          name: interval_end
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Successful upload of data
+          schema:
+            $ref: '#/definitions/data'
+    delete:
+      summary: Remove all data from a data source
+      description: >
+        Removes all data points from a specific data source
+      operationId: lib.api.apicalls.delete_data
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceTypeParam'
+      responses:
+        200:
+          description: Success
+          schema:
+            type: string
+
+  /user/{username}/data/{source_type}/bulk:
+    post:
+      summary: Authenticated data source uploads new data on behalf of the user
+      description: >
+        Authenticated data source uploads data. Data has to be in the correct format which varies depending on data source
+        type. Please refer to the documentation for further info. An example data string for an openhab sensor reading is
+        provided below.
+      operationId: lib.api.apicalls.store_bulk_data
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceTypeParam'
+        - name: data
+          in: body
+          schema:
+            $ref: '#/definitions/bulk_data'
+      responses:
+        200:
+          description: Successful upload of data
+          schema:
+            type: string
+
+  /user/{username}/query/{state}:
+    get:
+      summary: Get current queries relevant for user depending on their state
+      operationId: lib.api.apicalls.list_user_queries
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/stateParam'
+      responses:
+        200:
+          description: returns the queries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/query_object'
+    patch:
+      operationId: lib.api.apicalls.set_query_consent
+      summary: update the user's consent for a certain query
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/stateParam'
+        - name: query_ids
+          in: body
+          schema:
+            $ref: '#/definitions/query_ids'
+      responses:
+        200:
+          description: setting consent was successful
+          schema:
+            type: string
+
+  /user/{username}/query/{query_id}:
+      get:
+        summary: Get query based on its query_id
+        operationId: lib.api.apicalls.get_user_query
+        parameters:
+          - $ref: '#/parameters/usernameParam'
+          - $ref: '#/parameters/query_id'
+        responses:
+          200:
+            description: returns the query
+            schema:
+                $ref: '#/definitions/query_object'
+
+  /processor/{username}/pin_query/{state}:
+    get:
+      summary: processor gets pin query information including state and, if available, result
+      operationId: lib.api.apicalls.list_proc_pin_queries
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/stateParam'
+      responses:
+        200:
+          description: returns the queries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pin_query_object'
+
+  /user/{username}/pin_query/{state}:
+    get:
+      summary: processor gets pin query information including state and, if available, result
+      operationId: lib.api.apicalls.list_user_pin_queries
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/stateParam'
+      responses:
+        200:
+          description: returns the queries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pin_query_object'
+
+  /user/{username}/pin_query_info/{pin}:
+    get:
+      summary: Get info about a query, i.e. what information will be revealed to the processor
+      operationId: lib.api.apicalls.get_pin_query_info
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/pinParam'
+      responses:
+        200:
+          description: Returns the query information including what information the query would reveal to the processor
+          schema:
+            $ref: '#/definitions/pin_query_info'
+
+  /user/{username}/pin_query_response/{pin}:
+    post:
+      summary: Give consent to pin_query
+      operationId: lib.api.apicalls.set_pin_query_consent
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/pinParam'
+        - name: pin_query_response
+          in: body
+          schema:
+            $ref: '#/definitions/pin_query_response'
+      responses:
+        200:
+          description: Returns the query reply including according ids and error code
+          schema:
+            $ref: '#/definitions/pin_query_response_reply'
+
+  /user/{username}/wizard:
+    get:
+      summary: Returns, if the user has done the wizard
+      operationId: lib.api.apicalls.has_done_wizard
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: Returns a boolean indicating if the user has done the wizard
+          schema:
+            type: boolean
+    post:
+      summary: Sets, that the user has done the wizard to true
+      operationId: lib.api.apicalls.set_wizard_done
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+      responses:
+        200:
+          description: Success
+          schema:
+            type: string
+    patch:
+      summary: Sets the state of the wizard to a specific value, for development purposes
+      operationId: lib.api.apicalls.set_wizard_done_devel
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - name: state
+          in: body
+          schema:
+            type: object
+            required:
+              - state
+            properties:
+              state:
+                type: boolean
+      responses:
+        200:
+          description: Success
+          schema:
+            type: string
+
+### Payment-related Calls ###
+
+  /processor/{username}/get_payment_info/{query_id}:
+    get:
+      summary: give processor necessary information to pay the query
+      operationId: lib.api.apicalls.get_payment_info
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/query_id'
+      responses:
+       200:
+         description: Returns the necessary payment info
+         schema:
+           type: string
+
+  /auth/{username}/{source_type}:
+    post:
+      summary: Return JWT token
+      operationId: lib.api.apicalls.generate_token
+      parameters:
+        - $ref: '#/parameters/usernameParam'
+        - $ref: '#/parameters/sourceTypeParam'
+        - name: passw
+          in: body
+          schema:
+            $ref: '#/definitions/passw'
+      responses:
+        200:
+          description: JWT token
+          schema:
+            type: string 
+  
+  /auth/upload/{source_type}:
+    post:
+      summary: Authenticated data source uploads new data on behalf of the user
+      description: >
+        Authenticated data source uploads data. Data has to be in the correct format which varies depending on data source
+        type. Please refer to the documentation for further info. An example data string for an openhab sensor reading is
+        provided below.
+      operationId: lib.api.apicalls.auth_store_data
+      parameters:
+        - $ref: '#/parameters/sourceTypeParam'
+        - name: data
+          in: body
+          schema:
+            $ref: '#/definitions/data'
+      responses:
+        200:
+          description: Successful upload of data
+          schema:
+            type: string
+    
+  /auth/bulkupload/{source_type}/:
+    post:
+      summary: Authenticated data source uploads new data on behalf of the user
+      description: >
+        Authenticated data source uploads data. Data has to be in the correct format which varies depending on data source
+        type. Please refer to the documentation for further info. An example data string for an openhab sensor reading is
+        provided below.
+      operationId: lib.api.apicalls.auth_store_bulk_data
+      parameters:
+        - $ref: '#/parameters/sourceTypeParam'
+        - name: data
+          in: body
+          schema:
+            $ref: '#/definitions/bulk_data'
+      responses:
+        200:
+          description: Successful upload of data
+          schema:
+            type: string
+      
+parameters:
+
+  proc_id:
+    name: proc_id
+    in: path
+    type: integer
+    required: true
+
+  usernameParam:
+    name: username
+    in: path
+    type: string
+    pattern: "^[a-zA-Z0-9]*$"
+    required: true
+
+  queryIDParam:
+    name: query_id
+    in: path
+    type: string
+    pattern: "^[a-zA-Z0-9]*$"
+    required: true
+
+  sourceParam:
+    name: source_id
+    in: path
+    type: string
+    required: true
+
+  sourceTypeParam:
+    name: source_type
+    in: path
+    description: Data source type
+    type: string
+    required: true
+
+  detailParam:
+    name: detail
+    in: path
+    type: boolean
+    required: true
+
+  debugComputeAdhocParam:
+    name: debugComputeAdhoc
+    in: header
+    required: false
+    type: boolean
+    
+  stateParam:
+    name: state
+    in: path
+    type: string
+    required: true
+
+  pinParam:
+    name: pin
+    in: path
+    type: integer
+    required: true
+
+  query_id:
+    name: query_id
+    in: path
+    type: integer
+    required: true
+
+definitions:
+  query_id:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: number
+        format: integer
+
+  query_object:
+    type: object
+    required:
+      - query_id
+      - state
+    properties:
+      query_id:
+        type: number
+        format: integer
+      processor_id:
+        type: number
+        format: integer
+      query:
+        type: string
+      price:
+        type: number
+      interval_start_time:
+        type: number
+        format: integer
+      interval_finish_time:
+        type: number
+        format: integer
+      consent_start_time:
+        type: number
+        format: integer
+      consent_finish_time:
+        type: number
+        format: integer
+      amount:
+        type: number
+        format: integer
+        description: minimum amount of users to accept query 
+      granularity:
+        type: number
+        format: integer
+        description: granularity of the query    
+      max_privacy:
+        type: number
+        format: integer
+        description: maximum privacy level of users to be considered for processing this query (privacy increases with increasing level)    
+      state:
+        type: string
+        description: can be "pending", "aborted", "completed" or "processing"
+      result:  # only processor for all queries and for user if pin query 
+        type: string
+        description: result of query if completed or error message if aborted
+      consent:  # only user
+        type: string
+        description: user consent, can be "pending", "accepted", "refused"
+      title:
+        type: string
+      description:
+        type: string
+      goal_description:
+        type: string
+      used_data_types:
+        type: array
+        items:
+          type: string
+      thumbnail_url:
+        type: string
+
+
+  query_request:
+    type: object
+    required:
+      - query
+      - price
+      - interval_start_time
+      - interval_finish_time
+      - consent_finish_time
+      - consent_start_time
+      - amount
+      - granularity
+      - max_privacy
+    properties:
+      query_id:
+        type: number
+        format: integer
+      query:
+        type: string
+      price:
+        type: number
+      interval_start_time:
+        type: number
+        format: integer
+      interval_finish_time:
+        type: number
+        format: integer
+      consent_start_time: 
+        type: number
+        format: integer
+      consent_finish_time:
+        type: number
+        format: integer
+      amount: 
+        type: number
+        format: integer
+        description: minimum amount of users to accept query 
+      granularity:
+        type: number
+        format: integer
+        description: granularity of the query    
+      max_privacy:
+        type: number
+        format: integer
+        description: maximum privacy level of users to be considered for processing this query (privacy increases with increasing level)
+      title:
+        type: string
+      description:
+        type: string
+      goal_description:
+        type: string
+      used_data_types:
+        type: array
+        items:
+          type: string
+      thumbnail_url:
+        type: string
+
+  query_reply:
+    type: object
+    required:
+      - processor_id
+      - query_id
+      - error_code
+    properties:
+      processor_id:
+        type: number
+        format: integer
+      query_id:
+        type: number
+        format: integer
+      error_code:
+        type: number
+        format: integer
+        description: error code, if 0 query was accepted by server
+
+  pin_query_request:
+    type: object
+    required:
+      - query
+      - consent_start_time
+      - consent_finish_time
+    properties:
+      query_id:
+        type: number
+        format: integer
+      session_id:
+        type: number
+        format: integer
+      query:
+        type: string
+      consent_start_time: 
+        type: number
+        format: integer
+      consent_finish_time:
+        type: number
+        format: integer
+
+  pin_query_request_reply:
+    type: object
+    required:
+      - processor_id
+      - query_id
+      - error_code
+      - response_data
+    properties:
+      processor_id:
+        type: number
+        format: integer
+      query_id:
+        type: number
+        format: integer
+      error_code:
+        type: number
+        format: integer
+        description: error code, 0 if query was accepted by server
+      response_data:
+        type: object
+        properties:
+          session_id:
+            type: integer
+          session_pin:
+            type: integer
+
+  pin_query_response:
+    type: object
+    required:
+      - accept
+    properties:
+      accept:
+        type: string
+        description: can be "true" or "false"
+
+  pin_query_response_reply:
+    type: object
+    required:
+      - processor_id
+      - query_id
+      - error_code
+    properties:
+      processor_id:
+        type: number
+        format: integer
+      query_id:
+        type: number
+        format: integer
+      error_code:
+        type: number
+        format: integer
+        description: error code, 0 if query was accepted by server
+
+  pin_query_object:
+    type: object
+    required:
+      - query_id
+      - state
+    properties:
+      query_id:
+        type: number
+        format: integer
+      query:
+        type: string
+      consent_start_time:
+        type: number
+        format: integer
+      consent_finish_time:
+        type: number
+        format: integer
+      state:  # gives information about whether the user did enter the pin or not
+        type: string
+        description: can be "pending", "aborted", "completed" or "processing"
+      result: 
+        type: string
+        description: result of query if completed or error message if aborted
+
+  pin_query_info:
+    type: object
+    required:
+      - query_id
+      - proc_id
+      - query
+      - consent_start_time
+      - consent_finish_time
+      - state
+      - consent
+      - result
+    properties:
+      query_id:
+        type: number
+        format: integer
+      proc_id:
+        type: number
+        format: integer
+      query:
+        type: string
+      consent_start_time:
+        type: number
+        format: integer
+      consent_finish_time:
+        type: number
+        format: integer
+      state:  # gives information about whether the user did enter the pin or not
+        type: string
+        description: can be "pending", "aborted", "completed" or "processing"
+      consent:
+        type: string
+        description: can be "accepted" if consent given by user and "refused" otherwise
+      result: 
+        type: string
+        description: result how it would be given to the processor, if the user accepts the query
+
+  query_ids:
+    type: object
+    required:
+      - query_id
+      - proc_id
+    properties:
+      transaction_id:
+        type: string
+      query_id:
+        type: number
+        format: integer
+      proc_id:
+        type: number
+        format: integer
+
+  query_ids_proc:
+    type: object
+    required:
+      - query_id
+    properties:
+      transaction_id:
+        type: string
+      query_id:
+        type: number
+        format: integer
+      proc_id:
+        type: number
+        format: integer
+
+  interval:
+    type: object
+    required:
+      - interval_begin
+      - interval_end
+    properties:
+      interval_begin:
+        type: number
+        format: integer
+      interval_end:
+        type: number
+        format: integer
+
+  data_source_parameters:
+    type: object
+    required:
+      - access_token
+    properties:
+      timestamp:
+        type: integer
+        description: timestamp for the data source in miliseconds
+      access_token:
+        type: string
+        description: token for accessing the data source
+      upload_granularity:
+        type: integer
+        description: time interval for uploading data from this source
+      privacy_settings:
+        type: array
+        description: privacy levels for each attribute
+        items:
+          type: object
+          properties:
+            attribute:
+              type: string
+            level:
+              type: integer
+
+  data_source:
+    type: object
+    properties:
+      data_source_uuid:
+        type: number
+        format: integer
+        description: Unique Identifier for this data source
+      data_source_name:
+        type: string
+        description: name of the data source
+      timestamp:
+        type: integer
+        description: timestamp for the data source in microseconds since start of Unix epoch
+      access_token:
+        type: string
+        description: token for accessing the data source
+      upload_granularity:
+        type: number
+        format: integer
+        description: time interval for uploading data from this source
+      privacy_settings:
+        type: array
+        description: privacy settings for each attribute
+        items:
+          type: object
+          properties:
+            attribute:
+              type: string
+            level:
+              type: integer
+
+  available_data_source:
+    type: object
+    properties:
+      data_source_uuid:
+        type: number
+        format: integer
+        description: Unique Identifier for this data source
+      data_source_name:
+        type: string
+        description: name of the data source
+
+  data:
+    type: object
+    properties:
+      data_type:
+        type: string
+      sensor_name:
+        type: string
+      data_points:
+        type: array
+        items: {}
+
+  datum:
+    type: object
+    required:
+      - data
+    properties:
+      data:
+        type: string
+        example:
+          '{"data_type": "temp", "sensor_name": "temp_sensor_office", "timestamp": 123456789, "value": "21.4"}'
+
+
+  bulk_data:
+    type: object
+    required:
+      - data
+    properties:
+      data:
+        type: array
+        description: List of data items
+        items:
+          type: string
+          example:
+            '{"data_type": "temp", "sensor_name": "temp_sensor_office", "timestamp": 123456789, "value": "21.4"}'
+
+
+  user_profile:
+    type: object
+    required:
+      - username
+    properties:
+      username:
+        type: string
+        description: the username this profile belongs to.
+      email_address:
+        type: string
+        description: user's email address.
+
+  access_token:
+    type: object
+    required:
+      - value
+    properties:
+      value:
+        type: string
+        description: token for accessing the data source
+
+  upload_granularity:
+    type: object
+    required:
+      - interval
+    properties:
+      interval:
+        type: number
+        format: integer
+        description: The time interval for uploading data from this source.
+
+
+
+  data_source_privacy:
+    type: object
+    required:
+      - privacy_settings
+    properties:
+      privacy_settings:
+        type: array
+        description: The privacy levels per attribute to protect the data.
+        items:
+          type: object
+          properties:
+            attribute:
+              type: string
+            level:
+              type: integer
+            explicitconsent:
+              type: boolean
+
+  data_source_privacy_level:
+    type: object
+    required:
+      - level
+      - explicitconsent
+    properties:
+      level:
+        type: number
+        format: integer
+        description: The privacy level to be set for every data source and attribute.
+      explicitconsent:
+        type: boolean
+
+  default_privacy:
+    type: object
+    required:
+      - privacy_levels
+    properties:
+      privacy_levels:
+        type: array
+        description: The privacy levels per label to protect the data.
+        items:
+          type: object
+          properties:
+            label:
+              type: string
+            level:
+              type: integer
+            explicitconsent:
+              type: boolean
+
+  query_ID:
+    type: object
+    required:
+      - ID
+    properties:
+      ID:
+        type: string
+        description: the ID of the query.
+      privacy_level:
+         type: string
+         description: privacy level of the query.
+
+  passw:
+    type: object
+    required:
+      - password
+    properties:
+      password:
+        type: string
+        description: the user password.
+
+  processor_privacy:
+    type: object
+    required:
+      - username
+    properties:
+      username:
+        type: string
+        description: the username this privacy setting belongs to.
+      publicity_setting:
+        type: string
+        description: processor's privacy setting.
+
+  user_data:
+    type: object
+    required:
+      - password
+      - birthday
+      - email
+      - country
+    properties:
+      password:
+        type: string
+        description: user's password.
+      firstname:
+        type: string
+      lastname:
+        type: string
+      birthday:
+        type: string
+      street:
+        type: string
+      postal:
+        type: string
+      email:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      gender:
+        type: string
+      btc_address:
+        type: string
+      anon:
+        type: boolean
+
+  processor_profile:
+    type: object
+    properties:
+      name:
+        type: string
+      address:
+        type: string
+      postcode:
+        type: string
+      city:
+        type: string
+      org_type:
+        type: string
+      thumbnail_url:
+        type: string
+
+  entry:
+    type: object
+    required:
+      - name
+      - datatype
+    properties:
+      name: 
+        type: string
+      datatype:
+        type: string
+
+securityDefinitions:
+  JWT:
+    type: apiKey
+    in: header
+    name: Authorization

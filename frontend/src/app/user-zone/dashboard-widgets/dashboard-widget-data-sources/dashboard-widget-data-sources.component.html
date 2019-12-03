@@ -1,0 +1,25 @@
+<mat-card class="dashboard-widget-card mat-elevation-z4">
+  <mat-card-header routerLink="../data-management" class="pointer">
+    <mat-card-title>
+      <img class="widget-icon" src="../../../../assets/user-zone/icon-data-management.png" alt="data management icon">
+      {{ locale.get('dashboard-widget-connected-data-sources-title') }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch">
+    <div fxFlex="column" *ngFor="let ds of (getRegisteredDatasources()|async)" class="connected-datasource-row">
+      <div fxFlex class="text-left">{{ ds.displayedName }}</div>
+      <div fxFlex="10" routerLink="../data-management" [queryParams]="{edit: ds.id}" class="pointer" [matTooltip]="locale.get('data-management-component-table-row-tooltip-edit')"><mat-icon>edit</mat-icon></div>
+      <div fxFlex="10" routerLink="../data-management" [queryParams]="{show: ds.id}" class="pointer" [matTooltip]="locale.get('data-management-component-table-row-tooltip-show-info')"><mat-icon>visibility</mat-icon></div>
+      <div fxFlex="10" (click)="removeDatasource(ds)" class="pointer" [matTooltip]="locale.get('data-management-component-table-row-tooltip-unregister')"><mat-icon>delete</mat-icon></div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      fxFill
+      mat-raised-button
+      routerLink="../data-management"
+    >
+      {{locale.get('dashboard-widget-connected-data-sources-go-to-management-button-text')}}
+    </button>
+  </mat-card-actions>
+</mat-card>

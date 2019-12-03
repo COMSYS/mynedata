@@ -1,0 +1,22 @@
+<mat-toolbar role="heading" color="primary">
+  <span><img [src]="getMynedataLogoPath()" id="mynedata-logo-header"/></span>
+  <div *ngIf="navLinks && !useUserZone() && !useProcessorZone()" class="navLinks">
+    <span *ngFor="let navLink of navLinks"  style="margin-left: 20px;">
+      <a routerLink="{{navLink.routerLink}}">
+        {{ locale.get(navLink["localization-identifier"]) }}
+      </a>
+    </span>
+  </div>
+  <span class="fill-remaining-space"></span>
+  <span *ngIf="useUserZone()" fxLayout="row" fxLayoutAlign="center">
+    <app-little-score-display fxFlex=""></app-little-score-display>
+    <div class="header-spacer"></div>
+    <app-general-settings-header-link></app-general-settings-header-link>
+    <div class="header-spacer"></div>
+    <app-quick-profile-menu fxFlex=""></app-quick-profile-menu>
+  </span>
+  <span *ngIf="useProcessorZone()" fxLayout="row" fxLayoutAlign="center">
+    <app-quick-profile-menu-processor fxFlex=""></app-quick-profile-menu-processor>
+  </span>
+</mat-toolbar>
+<hr id="hr-toolbars-divider" class="mynedata-horizontal-divider">

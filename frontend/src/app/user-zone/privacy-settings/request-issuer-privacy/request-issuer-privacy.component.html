@@ -1,0 +1,7 @@
+<app-request-issuer-privacy-row
+  *ngFor="let issuer of getIssuerTypes()"
+  [parentFormGroup]="formGroup"
+  [requestIssuer]="issuer"
+  (onChange)="onChange()"
+>
+</app-request-issuer-privacy-row>

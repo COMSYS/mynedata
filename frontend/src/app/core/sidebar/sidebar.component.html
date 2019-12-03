@@ -1,0 +1,17 @@
+<ul *ngIf="navLinks" class="sidebar-nav-links-list" >
+  <li *ngFor="let navLink of navLinks; let last = last; let first = first" [routerLink]="getRedirectUrlObject(navLink.routerLink)" routerLinkActive="routerlink-active">
+    <div class="sidebar-nav-links-list-item">
+      <div class="sidebar-nav-links-list-item-icon-wrapper">
+      <span *ngIf="navLink.badgeValue$" [matBadge]="navLink.badgeValue$|async" matBadgePosition="above after" matBadgeColor="warn">
+        <img [src]="buildSidebarNavLinkIconPath(navLink.icon)">
+      </span>
+        <img *ngIf="!navLink.badgeValue$" [src]="buildSidebarNavLinkIconPath(navLink.icon)">
+      </div>
+      <a>
+        {{ _locale.get(navLink["localization-identifier"]) }}
+      </a>
+    </div>
+    <hr class="mynedata-horizontal-divider">
+  </li>
+</ul>
+

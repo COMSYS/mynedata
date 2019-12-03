@@ -1,0 +1,7 @@
+mat-drawer-container {
+  height: calc(90vh - 7px); /* the header's toolbar is at most 10vh, the <hr> below it has a height of 2px, but somehow now it's 7px off */
+}
+
+mat-drawer {
+  height: 100%;
+}

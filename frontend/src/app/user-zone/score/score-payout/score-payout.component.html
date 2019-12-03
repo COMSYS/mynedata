@@ -1,0 +1,90 @@
+<div class="component-container" fxLayout="column" fxLayoutAlign="space-around stretch" >
+  <div fxLayout="row" fxLayoutAlign="start stretch" class="header">
+    <div fxFlex="20"><img class="score-icon" src="../../../../assets/user-zone/icon-score.svg" alt="score component icon"></div>
+    <div fxLayout="column" fxLayoutAlign="space-between center" >
+      <div>{{print('dashboard-widget-my-score-you-have-so-many-points')}}<span class="bold">{{getPoints()}}</span></div>
+      <div>{{print('dashboard-widget-my-score-they-are-worth-so-much')}}<span class="bold">{{getWorthOfPoints()}}</span></div>
+    </div>
+  </div>
+  <ng-container *ngIf="isOverviewState()">
+    <div class="container-payout money mynedata-bordered mynedata-bordered-hover" fxLayout="column" fxLayoutAlign="space-around stretch" (click)="setGetMoneyState()">
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <div fxFlex="16">
+          <img class="icon-way-of-payout" src="../../../../assets/common/stacked-coins.svg" alt="image of stacked coins">
+        </div>
+        <div fxFlex="1 1 auto">
+          {{ print('score-payout-payout') }}
+        </div>
+        <div fxFlex="7">
+          5€
+        </div>
+      </div>
+      <div fxFlexFill>{{ print('score-payout-minimum') }}</div>
+      <div fxLayout="row" fxLayoutAlign="space-around stretch" >
+        <div fxFlex="21"><img matTooltip="SEPA" class="icon-service-provider" src="../../../../assets/common/icon-sepa.png" alt="logo of SEPA"></div>
+        <div fxFlex="22"><img matTooltip="PayPal" class="icon-service-provider" src="../../../../assets/common/icon-paypal.png" alt="logo of PayPal"></div>
+        <div fxFlex="7"><img matTooltip="Bitcoin Cash" class="icon-service-provider" src="../../../../assets/common/icon-bitcoin-cash.png" alt="logo of SEPA"></div>
+      </div>
+    </div>
+
+    <div class="container-payout voucher mynedata-bordered mynedata-bordered-hover" fxLayout="column" fxLayoutAlign="space-around stretch" (click)="setGetVoucherState()">
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <div fxFlex="16">
+          <img class="icon-way-of-payout" src="../../../../assets/common/vouchers-discount.svg" alt="image of stacked coins">
+        </div>
+        <div fxFlex="1 1 auto">
+          {{ print('score-payout-voucher') }}
+        </div>
+        <div fxFlex="7">
+          5€
+        </div>
+      </div>
+      <div fxFlexFill>{{ print('score-payout-minimum') }}</div>
+      <div fxFlexFill>{{ print('score-payout-cadooz') }}</div>
+      <div fxLayout="row" fxLayoutAlign="space-around stretch" >
+        <div fxFlex="1 1 auto"></div>
+        <div fxFlex="32"><img matTooltip="Cadooz Vouchers" class="icon-service-provider" src="../../../../assets/common/icon-cadooz.png" alt="logo of cadooz"></div>
+      </div>
+    </div>
+
+    <div class="container-payout donation mynedata-bordered mynedata-bordered-hover" fxLayout="column" fxLayoutAlign="space-around stretch" (click)="setDoDonateState()">
+      <div fxLayout="row" fxLayoutAlign="start center" >
+        <div fxFlex="16">
+          <img class="icon-way-of-payout" src="../../../../assets/common/donation.svg" alt="image of stacked coins">
+        </div>
+        <div fxFlex="1 1 auto">
+          {{ print('score-payout-donate') }}
+        </div>
+        <div fxFlex="7">
+          5-6€
+        </div>
+      </div>
+      <div fxFlexFill>{{ print('score-payout-donate-more') }}</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isOverviewState()">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayoutAlign="start center" class="pointer" (click)="setOverviewState()">
+        <div>
+          <mat-icon>arrow_back</mat-icon>
+        </div>
+        <div>
+          {{ print('score-payout-back') }}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isGetMoneyState()">
+    <app-score-payout-money-chosen></app-score-payout-money-chosen>
+  </ng-container>
+
+  <ng-container *ngIf="isGetVoucherState()">
+    <app-score-payout-voucher-chosen></app-score-payout-voucher-chosen>
+  </ng-container>
+
+  <ng-container *ngIf="isDoDonateState()">
+    <app-score-payout-donation-chosen></app-score-payout-donation-chosen>
+  </ng-container>
+</div>

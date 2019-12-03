@@ -1,0 +1,12 @@
+mat-card {
+	width: 50em;
+}
+
+a {
+	color: #0070c0 !important;
+	text-decoration: none !important;
+}
+
+a.unavailable {
+	color: lightslategrey !important;
+}

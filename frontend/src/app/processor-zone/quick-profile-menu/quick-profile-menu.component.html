@@ -1,0 +1,8 @@
+<div class="quick-profile-menu-container">
+  <button mat-button [matMenuTriggerFor]="quickProfileMenu">
+    <img src="../../../assets/user-zone/placeholder-missing-profile-picture.svg" (click)="openMenu()" id="quick-profile-menu-profile-picture">
+  </button>
+  <mat-menu #quickProfileMenu="matMenu">
+    <button mat-menu-item (click)="invokeLogout()">{{ this.locale.get('logout-link-header') }}</button>
+  </mat-menu>
+</div>

@@ -1,0 +1,18 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="wizard">
+  <div fxLayout="column" fxLayoutAlign="space-around stretch">
+    <h3 fxFlexFill>{{print('wizard-title-please-adjust-privacy')}}</h3>
+    <p fxFlexFill>{{print('wizard-subtext-please-adjust-privacy')}}</p>
+    <button
+      mat-raised-button
+      (click)="skipWizard()"
+      fxFlexFill>{{print('wizard-button-skip-for-now-text')}}</button>
+  </div>
+  <hr class="mynedata-horizontal-divider">
+  <app-privacy-settings
+    fxFlex
+    (onSave)="closeWizardAfterUsage()"
+    [refresh-slider]="wizardAfterOpenEventEmitter"
+    suppressUpdateOnDataTypePrivacyWarning="true"
+  >
+  </app-privacy-settings>
+</div>

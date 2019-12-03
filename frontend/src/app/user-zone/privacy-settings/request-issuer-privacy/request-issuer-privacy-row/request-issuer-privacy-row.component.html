@@ -1,0 +1,23 @@
+<div
+  *ngIf="hasFetchedPermission|async"
+  fxLayout="row" fxLayoutAlign="start center"
+  fxFill class="request-issuer-privacy-row"
+  [formGroup]="parentFormGroup"
+>
+  <div fxFlex="8">
+    <img [src]="'../../../assets/common/' + requestIssuer.iconPath" class="request-issuer-type-icon">
+  </div>
+  <div fxFlex="30">
+    {{print(requestIssuer.nameLocaleIdentifier)}}
+  </div>
+  <div fxFlex="10">
+    <mat-slide-toggle
+      [formControlName]="requestIssuer.id"
+      (change)="onChange.emit()"
+    >
+    </mat-slide-toggle>
+  </div>
+  <div fxFlex>
+    {{print(requestIssuer.descriptionLocaleIdentifier)}}   <a class="mynedata-link" matTooltip="Future: open dialog that lists all registered issuers with this type">{{print('show-more-issuer-type-description')}}</a>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<mat-card class="dashboard-widget-card mat-elevation-z4">
+  <mat-card-header routerLink="../charts" class="pointer">
+    <mat-card-title >
+      <img class="widget-icon" src="../../../../assets/user-zone/icon-charts.png" alt="charts icon">
+      {{ locale.get('dashboard-widget-my-charts-title') }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #createChartWidgetForm="ngForm" (ngSubmit)="openChart(createChartWidgetForm)">
+      <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+        <mat-form-field fxFlexFill>
+          <input matInput [matDatepicker]="pickerStart" name="startDate" placeholder="{{ locale.get('dashboard-widget-my-charts-choose-date-start-text')}}" required [ngModel]="formControlDateStart">
+          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlexFill>
+          <input matInput [matDatepicker]="pickerEnd" name="endDate" placeholder="{{ locale.get('dashboard-widget-my-charts-choose-date-end-text')}}" required [ngModel]="formControlDateEnd">
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlexFill *ngIf="(datasources|async) as dss" fxLayoutGap="">
+          <mat-select placeholder="{{ locale.get('dashboard-widget-my-charts-choose-datatype-text') }}" required name="datasource" [ngModel]="chosenDatatype" [ngPlural]="dss.length">
+            <ng-template ngPluralCase="=0">
+              <mat-option>
+                No Datasource registered
+              </mat-option>
+            </ng-template>
+            <ng-template ngPluralCase="other">
+              <mat-option *ngFor="let datasource of dss" [value]="datasource.id">
+                {{ datasource.name }}
+              </mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      fxFill
+      mat-raised-button
+      [disabled]="!createChartWidgetForm.valid"
+    >
+      {{locale.get('dashboard-widget-my-charts-create-diagram-text')}}
+    </button>
+  </mat-card-actions>
+</mat-card>
+

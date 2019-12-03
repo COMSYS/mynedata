@@ -1,0 +1,114 @@
+<h1 mat-dialog-title>{{getRequest().title}}</h1>
+<div mat-dialog-content fxLayout="column" fxLayoutAlign="space-evenly start" class="center-content">
+  <div class="intro-container">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h3 class="issuer-name">{{getProcessor().name}}</h3>
+      <div class="fill-remaining-space"></div>
+      <a class="mynedata-link" *ngIf="getProcessor().websiteUrl" [href]="getProcessor().websiteUrl" target="_blank">{{print('request-dialog-website-link-text')}}</a>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="1 1 auto" fxFlexAlign="start">
+        <span class="underline">{{print('request-dialog-business-branch-text')}}:</span>
+        <img [src]="getIssuerTypeBranchIconPath()" class="icon">
+        {{printIssuerTypeName()}}
+      </div>
+      <div class="fill-remaining-space"></div>
+      <div fxLayoutAlign="center center">
+        {{getProcessor().locatedIn.cityName}}
+        <img class="icon" src="../../../../assets/common/location-data-icon.svg" fxFlexAlign="center" alt="location icon">
+      </div>
+    </div>
+    <div fxLayout fxLayoutAlign="center center">
+      <img [src]="getQueryThumbnailPath()" class="logo" [alt]="'logo of ' + getProcessor().name">
+    </div>
+  </div>
+  <h4 fxFlexAlign="start" class="bold">{{print('request-dialog-the-offer-text')}}:</h4>
+  <table>
+    <tr>
+      <td><span class="underline">{{print('request-dialog-offer-for-what-text')}}:</span></td>
+      <td>
+        <div *ngFor="let datatype of getRequest().targetedData">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div>
+              <img [src]="getDatatypeIconPath(datatype.datatype)" class="icon">
+            </div>
+            <div>
+              {{printDatatypeName(datatype.datatype)}}
+            </div>
+            <div>
+              <mat-icon
+                *ngIf="!isDetailsExpanded(datatype.datatype)"
+                (click)="expandDetails(datatype.datatype)"
+                class="mouse-cursor"
+              >
+                expand_more
+              </mat-icon>
+              <mat-icon
+                *ngIf="isDetailsExpanded(datatype.datatype)"
+                (click)="contractDetails(datatype.datatype)"
+                class="mouse-cursor"
+              >
+                expand_less
+              </mat-icon>
+            </div>
+          </div>
+          <div *ngIf="isDetailsExpanded(datatype.datatype)">
+            {{datatype.detailed}}
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start space-between">
+          <div><mat-icon id="access-time-icon">access_time</mat-icon></div>
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div>{{printDurationOfObservation()}}</div>
+            <div>{{printDurationOfObservationAsDateToDate()}}</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td><span class="underline" fxFlexAlign="start">{{print('request-dialog-offer-what-for-text')}}:</span></td>
+      <td>
+        <p>{{getRequest().goalDescription}}</p>
+      </td>
+    </tr>
+    <tr>
+      <td [matTooltip]="print('request-tables-header-reward')"><img src="../../../../assets/user-zone/icon-requests.svg" class="icon"></td>
+      <td>{{printReward()}}</td>
+    </tr>
+  </table>
+
+  <div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div><h4 class="underline bold">{{print('request-dialog-description-text')}}: </h4></div>
+      <div>
+        <mat-icon
+          *ngIf="!isDescriptionExpanded()"
+          (click)="expandDescription()"
+          class="mouse-cursor"
+        >
+          expand_more
+        </mat-icon>
+        <mat-icon
+          *ngIf="isDescriptionExpanded()"
+          (click)="contractDescription()"
+          class="mouse-cursor"
+        >
+          expand_less
+        </mat-icon>
+      </div>
+    </div>
+    <div *ngIf="isDescriptionExpanded()">
+      {{getRequest().description}}
+    </div>
+  </div>
+
+
+</div>
+<div mat-dialog-actions *ngIf="isPending()">
+  <button mat-button (click)="acceptRequest()">{{print('request-dialog-action-accept')}}</button>
+  <button mat-button [mat-dialog-close]="null" cdkFocusInitial>{{print('request-dialog-action-decide-later')}}</button>
+  <button mat-button (click)="declineRequest()">{{print('request-dialog-action-decline')}}</button>
+</div>
+<div mat-dialog-actions *ngIf="!isPending()">
+  <button mat-button [mat-dialog-close]="null" cdkFocusInitial>{{print('request-dialog-action-close-window')}}</button>
+</div>

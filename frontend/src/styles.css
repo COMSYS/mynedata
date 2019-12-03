@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+html, body, app-root {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+}
+
+#mynedata-logo-header {
+  width: 8.5em;
+  height: auto;
+}
+
+#sidebar-nav-drawer {
+  width: 13em;
+  display: block;
+}
+
+mat-toolbar {
+  padding: 0;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+mat-toolbar.breadcrumbs-bar {
+  font-size: x-small;
+  height: fit-content;
+}
+
+.container {
+  padding-top: 1em !important;
+  padding-left: 2em !important;
+  padding-right: 2em !important;
+}
+
+.center-text {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.stretch-horizontally {
+  width: 100%;
+}
+
+.stretch-vertically {
+  height: 100%;
+}
+
+.pointer, .mouse-cursor {
+  cursor: pointer;
+}
+
+hr.mynedata-horizontal-divider {
+  display: block;
+  height: 2px;
+  border: none;
+  width: 100%;
+  background-color: #c9d59d;
+}
+
+a.mynedata-link {
+  font-size: smaller;
+  color: grey;
+  text-decoration: underline !important;
+}
+.header-spacer {
+  display: block;
+  margin-left: .6em;
+  margin-right: .6em;
+}
+
+.mynedata-bordered {
+  padding: 1em 1em 1em 1em;
+  margin: .25em 0 .25em 0;
+  border-style: solid;
+  border-color: #c9d59d;
+  border-width: thin;
+  display: block;
+  background-color: white;
+}
+
+.mynedata-bordered-hover:hover {
+  filter: drop-shadow(4px 4px 7px #c9d59d);
+}

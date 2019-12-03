@@ -1,0 +1,8 @@
+img {
+  height: 2.5em;
+  width: auto;
+}
+
+.not-toggled {
+  opacity: .3;
+}

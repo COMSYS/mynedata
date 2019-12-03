@@ -1,0 +1,24 @@
+<mat-form-field>
+  <mat-label>{{printLabelOfSensorDropdownList()}}</mat-label>
+  <mat-select (selectionChange)="onSourceSelectionChange($event.value)">
+    <mat-option *ngIf="availableSources.length == 0" >{{printNoDataAvailable()}}</mat-option>
+    <mat-option *ngFor="let source of availableSources" [value]="source.id">
+      {{source.readable}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div *ngIf="showCanvas">
+  <ngx-charts-line-chart
+    [scheme]="colorScheme"
+    [results]="chartData"
+    [showGridLines]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [timeline]="true"
+    [autoScale]="true"
+    [xAxisTickFormatting]="formatXAxisTicks"
+    [yAxisTickFormatting]="yAxisFormatter"
+    (select)="onSelect($event)">
+  </ngx-charts-line-chart>
+</div>

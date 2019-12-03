@@ -1,0 +1,12 @@
+<div [formGroup]="parentForm" fxLayout="column" fxLayoutAlign="space-around stretch">
+  <mat-checkbox
+    (change)="onChange.emit()"
+    [formControlName]="formControlNameInParentForm"
+		fxFlexFill
+	>
+		<div fxFlexFill>
+			{{print('privacy-settings-explicit-authorization-checkbox-label')}}
+		</div>
+	</mat-checkbox>
+	<a class="mynedata-link" fxFlexFill>{{print('privacy-settings-explicit-authorization-link-notification-settings')}}</a>
+</div>

@@ -1,0 +1,10 @@
+<div style="display: block;" *ngIf="showCanvas">
+  <canvas baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [colors]="chartColors"
+          [legend]="chartLegend"
+          [chartType]="chartType"
+  ></canvas>
+</div>

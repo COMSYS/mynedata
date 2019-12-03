@@ -1,0 +1,10 @@
+.quick-profile-menu-container {
+    height: auto;
+    width: 1.75em;
+    margin-right: 2em;
+}
+
+.quick-profile-menu-container #quick-profile-menu-profile-picture {
+    height: 100%;
+    width: 100%;
+}

@@ -1,0 +1,22 @@
+<form [formGroup]="formCreatePinQuery">
+  <div fxLayout="column" fxLayoutAlign="space-around stretch" >
+    <mat-form-field>
+      <input matInput [placeholder]="print('register-query-form-placeholder-query-string')" formControlName="queryString">
+    </mat-form-field>
+    <mat-label for="consentTimeArea">{{print('register-query-form-label-consent-time')}}</mat-label>
+    <div formGroupName="consentTime" fxLayout="row" fxLayoutAlign="space-evenly center" id="consentTimeArea">
+      <mat-form-field fxFlex>
+        <input matInput [matDatepicker]="consentStart" [placeholder]="print('register-query-form-placeholder-consent-time-start')" [min]="getToday()" formControlName="start">
+        <mat-datepicker-toggle matSuffix [for]="consentStart"></mat-datepicker-toggle>
+        <mat-datepicker #consentStart startView="year" (monthSelected)="monthSelected($event, consentStart)"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput [matDatepicker]="consentEnd" [placeholder]="print('register-query-form-placeholder-consent-time-end')" [min]="consentStart._datepickerInput.value" formControlName="end">
+        <mat-datepicker-toggle matSuffix [for]="consentEnd"></mat-datepicker-toggle>
+        <mat-datepicker #consentEnd startView="year" (monthSelected)="monthSelected($event, consentEnd, false)"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button [disabled]="!formCreatePinQuery.valid" (click)="sendForm()">{{print('register-query-form-button-register-query')}}</button>
+  </div>
+</form>

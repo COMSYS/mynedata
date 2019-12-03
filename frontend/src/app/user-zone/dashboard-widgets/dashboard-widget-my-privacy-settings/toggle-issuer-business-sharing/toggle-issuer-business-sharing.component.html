@@ -1,0 +1,15 @@
+<div (click)="toggle()" [matTooltip]="getTooltipText()">
+  <img
+    [src]="'../../../../../assets/common/' + issuer.iconPath"
+    alt="icon of datatype"
+    [class.not-toggled]="!(isToggled)"
+    style="position: relative;"
+  />
+  <img
+    src="../../../../../assets/common/x-crossed-out.svg"
+    alt="x crossed out indicator"
+    style="position: absolute; left: 0;"
+    class="not-toggled"
+    *ngIf="!(isToggled)"
+  />
+</div>

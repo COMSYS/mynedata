@@ -1,0 +1,61 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="container">
+	<h3>{{ getLocale('dashboard-widget-connected-data-sources-title') }}</h3>
+	<mat-form-field fxFlexFill>
+		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" class="table-connected-datasources">
+	</mat-form-field>
+	<table mat-table [dataSource]="matTableDataConnectedDatasources" class="mat-elevation-z8" matSort fxFlexFill>
+
+		<ng-container matColumnDef="name">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> {{ print('data-management-component-table-header-name') }} </th>
+			<td mat-cell *matCellDef="let ds"> {{ds.displayedName}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="datatypes">
+			<th mat-header-cell *matHeaderCellDef> {{ print('data-management-component-table-header-datatypes')}} </th>
+			<td mat-cell *matCellDef="let ds">{{ buildLocalizedStringDataTypes(ds.datatypes) }}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="uploadInterval">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> {{print('data-management-component-table-header-upload-interval')}} </th>
+			<td mat-cell *matCellDef="let ds">{{ buildLocalizedStringUploadInterval(ds.frequency, ds.unitOfTime) }}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="customPrivacy">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Custom </th>
+			<td mat-cell *matCellDef="let ds">{{ buildStringWhetherCustomPrivaciesAreSet(ds) }}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="edit">
+			<th mat-header-cell *matHeaderCellDef> {{print('data-management-component-table-header-edit')}} </th>
+			<td mat-cell *matCellDef="let ds">
+				<mat-icon (click)="editDatasource(ds)" class="mouse-cursor" [matTooltip]="print('data-management-component-table-row-tooltip-edit')">
+					edit
+				</mat-icon>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="moreInfo">
+			<th mat-header-cell *matHeaderCellDef> {{print('data-management-component-table-header-more-info')}} </th>
+			<td mat-cell *matCellDef="let ds">
+				<mat-icon (click)="showInfoForDatasource(ds)" class="mouse-cursor" [matTooltip]="print('data-management-component-table-row-tooltip-show-info')">
+					visibility
+				</mat-icon>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="deregisterDatasource">
+			<th mat-header-cell *matHeaderCellDef> {{print('data-management-component-table-header-remove')}} </th>
+			<td mat-cell *matCellDef="let ds">
+				<mat-icon class="mouse-cursor" (click)="removeDatasource(ds)" [matTooltip]="print('data-management-component-table-row-tooltip-unregister')">
+					delete
+				</mat-icon>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="getMatHeaderRow()"></tr>
+		<tr mat-row *matRowDef="let row; columns: getMatTableShownColumns();"></tr>
+	</table>
+
+	<mat-paginator [pageSizeOptions]="[10, 25, 100]" fxFlexFill></mat-paginator>
+</div>
+<app-fab-simple [click]="openAddDatasourceDialog.bind(this)" [tooltip]="print('add-datasource-floating-fab-button-tooltip')"></app-fab-simple>

@@ -1,0 +1,17 @@
+.navLinks {
+  margin-left: 5em;
+  font-size: smaller;
+}
+
+#hr-toolbars-divider {
+  margin: 0 0 0 0;
+}
+
+mat-toolbar {
+  padding-top: .5em;
+  min-height: 5em;
+  height: 10vh;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}

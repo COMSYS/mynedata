@@ -1,0 +1,23 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch">
+  <div fxFlex>
+    <h3>{{print('privacy-settings-datatypes-title')}}</h3>
+    <p>{{print('privacy-settings-datatypes-subtext')}}</p>
+    <a class="mynedata-link">{{print('privacy-settings-datatypes-link-more-info')}}</a>
+  </div>
+  <ng-template [ngIf]="formGroup">
+    <form
+      [formGroup]="formGroup">
+      <div class="datatype-privacy-rows">
+        <app-datatype-row
+          *ngFor="let dataType of getDataTypes(); first as isFirst"
+          [datatype]="dataType"
+          [parentFormGroup]="formGroup"
+          [childFormControlName]="(dataType.id).toString()"
+          [showLegends]="isFirst"
+          (changed)="onChange()"
+          [refresh-slider]="refreshSlider"
+        ></app-datatype-row>
+      </div>
+    </form>
+  </ng-template>
+</div>

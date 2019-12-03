@@ -1,0 +1,132 @@
+<h2 style="text-align: center; margin-top: 10px">Erstellen Sie hier Ihren Account:</h2>
+<mat-card class="register-card">
+  <mat-tab-group>
+    <mat-tab label="{{ locale.get('title-tab-register-user') }}">
+      <ng-template matTabContent>
+        <form [formGroup]="formGroupUserRegistration" (submit)="register()">
+          <mat-card>
+          <p style="width: 400px">{{ locale.get('register-anonymously-info') }}</p>
+            <mat-slide-toggle formControlName="registerAnonymously" labelPosition="before"
+                              (change)="changedAnonymousSlider()"
+            >
+              {{ locale.get('register-anonymously-register-user') }}
+            </mat-slide-toggle>
+          </mat-card>
+          <br>
+
+          <div formGroupName="personal">
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['firstname']">
+              <input matInput placeholder="{{ locale.get('placeholder-first-name-user-profile') }}{{ requiredFieldsUsers['firstname'] ? '*' : null }}" type="text"
+                     formControlName="firstname"
+              >
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['lastname']">
+              <input matInput placeholder="{{ locale.get('placeholder-last-name-user-profile') }}{{ requiredFieldsUsers['lastname'] ? '*' : null }}"
+                     type="text" formControlName="lastname">
+            </mat-form-field>
+            <br>
+            <mat-label *ngIf="!registerAnonymously || requiredFieldsAnonUsers['gender']">{{ locale.get('label-gender-user-profile') }}{{ requiredFieldsUsers['gender'] ? '*' : null }}</mat-label>
+            <br>
+            <mat-radio-group formControlName="gender" *ngIf="!registerAnonymously || requiredFieldsAnonUsers['gender']">
+              <mat-radio-button value="{{ gender.MALE }}">{{ locale.get('gender-male') }}</mat-radio-button>
+              <br>
+              <mat-radio-button value="{{ gender.FEMALE }}">{{ locale.get('gender-female') }}</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['birthday']">
+              <input matInput placeholder="{{ locale.get('label-birthday-user-profile') }}{{ requiredFieldsUsers['birthday'] ? '*' : null }}"
+                     type="date" formControlName="birthday">
+            </mat-form-field>
+          </div>
+
+          <div formGroupName="account">
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['username']">
+              <input matInput
+                     placeholder="{{ locale.get('placeholder-username-user-profile') }}{{ requiredFieldsUsers['username'] ? '*' : null }}"
+                     type="text" formControlName="username">
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['email']">
+              <input matInput placeholder="{{ locale.get('placeholder-email-user-profile') }}{{ requiredFieldsUsers['email'] ? '*' : null }}"
+                     type="email" email formControlName="email">
+              <mat-error *ngIf="formGroupUserRegistration.get('account').get('email').hasError('email')">
+                {{locale.get('not-valid-email-address')}}
+              </mat-error>
+            </mat-form-field>
+            <br>
+          </div>
+          <div formGroupName="location">
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['country']">
+              <mat-select placeholder="{{ locale.get('placeholder-country-of-origin-user-profile') }}{{ requiredFieldsUsers['country'] ? '*' : null }}" formControlName="country">
+                <mat-option *ngFor="let country of locale.get('countries') | keyvalue" [value]="country.key">
+                  {{country.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['street']">
+              <input matInput placeholder="{{ locale.get('placeholder-street-user-profile') }}{{ requiredFieldsUsers['street'] ? '*' : null }}"
+                     type="text" formControlName="street">
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['postal']">
+              <input matInput placeholder="{{ locale.get('placeholder-postal-user-profile') }}{{ requiredFieldsUsers['postal'] ? '*' : null }}"
+                     type="text" formControlName="postal">
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['city']">
+              <input matInput placeholder="{{ locale.get('placeholder-city-user-profile') }}{{ requiredFieldsUsers['city'] ? '*' : null }}"
+                     type="text" formControlName="city">
+            </mat-form-field>
+          </div>
+
+          <div formGroupName="passwords">
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['password']">
+              <input matInput placeholder="{{ locale.get('placeholder-password-user-profile') }}{{ requiredFieldsUsers['password'] ? '*' : null }}"
+                     type="password" formControlName="password" autocomplete="new-password">
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="!registerAnonymously || requiredFieldsAnonUsers['password']">
+              <input matInput placeholder="{{ locale.get('placeholder-password-confirmation-user-profile') }}{{ requiredFieldsUsers['password'] ? '*' : null }}"
+                     type="password" formControlName="confirmation">
+            </mat-form-field>
+            <mat-error *ngIf="formGroupUserRegistration.controls['passwords'].hasError('noMatch')">
+              {{ locale.get('password-mismatch-register-user') }}
+            </mat-error>
+          </div>
+
+          <br>
+          <button mat-raised-button color="accent" [disabled]="!formGroupUserRegistration.valid || formGroupUserRegistration.get('passwords').get('confirmation').pristine" class="stretch-horizontally">
+            {{ locale.get('register-button-register-user') }}
+          </button>
+        </form>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="{{ locale.get('title-tab-register-processor') }}">
+      <ng-template matTabContent>
+        <form *ngIf="requiredFieldsDataProcessors" novalidate [formGroup]="formGroupProcessorRegistration" (ngSubmit)="register(true)">
+          <mat-form-field >
+            <input matInput placeholder="username" type="text" formControlName="username" [required]="requiredFieldsDataProcessors['username']">
+          </mat-form-field>
+          <br>
+          <div formGroupName="passwords">
+            <mat-form-field>
+              <input matInput placeholder="password" formControlName="password" type="password" [required]="requiredFieldsDataProcessors['password']">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <input matInput placeholder="confirm password" formControlName="confirmation" type="password" [required]="requiredFieldsDataProcessors['password']">
+            </mat-form-field>
+            <mat-error *ngIf="formGroupProcessorRegistration.controls['passwords'].hasError('noMatch')">
+              {{ locale.get('password-mismatch-register-user') }}
+            </mat-error>
+          </div>
+          <br>
+          <button mat-raised-button color="accent" id="register-button" [disabled]="!formGroupProcessorRegistration.valid">register</button>
+        </form>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

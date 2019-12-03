@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Query Info:</h1>
+<div mat-dialog-content fxLayout="column" fxLayoutAlign="space-evenly start" class="center-content">
+  <p>TITLE: {{printData("title")}}</p><br>
+  <p>DESCRIPTION: {{printData("description")}}</p><br>
+  <p>GOAL DESCRIPTION: {{printData("goal_description")}}</p><br>
+  <p>ID: {{printData("query_id")}}</p><br>
+  <p>QUERY: {{printData("query")}}</p><br>
+  <p>STATE: {{printData("query_state")}}</p><br>
+  <p>INTERVAL START: {{printData("interval_start_time")}}, {{showAsDateString(printData("interval_start_time"))}}</p><br>
+  <p>INTERVAL END: {{printData("interval_finish_time")}}, {{showAsDateString(printData("interval_finish_time"))}}</p><br>
+  <p>CONSENT START: {{printData("consent_start_time")}}, {{showAsDateString(printData("consent_start_time"))}}</p><br>
+  <p>CONSENT END: {{printData("consent_finish_time")}}, {{showAsDateString(printData("consent_finish_time"))}}</p><br>
+  <p>MIN. AMOUNT OF USERS: {{printData("amount")}}</p><br>
+  <p>GRANULARITY OF DATA: {{printData("granularity")}}</p><br>
+  <p>MAX. ALLOWED PRIVACY: {{printData("max_privacy")}}</p><br>
+  <p>USED DATA TYPES: {{printData("used_data_types")}}</p><br>
+  <p>RESULT: {{printData("result")}}</p><br>
+</div>
+<ng-container *ngIf="isDevMode()">
+  <button mat-raised-button color="warn" (click)="dev_recomputeQueryResult()">DevMode: recompute results</button>
+</ng-container>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="null" cdkFocusInitial>{{print('request-dialog-action-close-window')}}</button>
+</div>
+

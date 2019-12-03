@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>PIN QUEREEEEYYY</h1>
+<div mat-dialog-content fxLayout="column" fxLayoutAlign="space-evenly start" class="center-content">
+  {{demoPrintPinQueryInfo()}}
+</div>
+<div mat-dialog-actions *ngIf="isPending()">
+  <button mat-button (click)="acceptRequest()" [mat-dialog-close]="null">{{print('request-dialog-action-accept')}}</button>
+  <button mat-button [mat-dialog-close]="null" cdkFocusInitial>{{print('request-dialog-action-decide-later')}}</button>
+  <button mat-button (click)="declineRequest()" [mat-dialog-close]="null">{{print('request-dialog-action-decline')}}</button>
+</div>
+<div mat-dialog-actions *ngIf="!isPending()">
+  <button mat-button [mat-dialog-close]="null" cdkFocusInitial>{{print('request-dialog-action-close-window')}}</button>
+</div>
+

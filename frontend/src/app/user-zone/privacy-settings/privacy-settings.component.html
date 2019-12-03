@@ -1,0 +1,40 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="container">
+	<app-global-privacy
+		[refresh-slider]="refreshSlider"
+		[parent-form]="formGroup"
+		[form-group-name-datatypes-privacies]="fromGroupNameDatatypesPrivacies"
+		(onChange)="hasChangedDataTypePrivacies = true"
+		[recheckTickPosition]="recheckTickPositionEventEmitter"
+		[dataTypesPrivaciesReady]="dataTypesPrivaciesReadyEE"
+	></app-global-privacy>
+	<hr class="mynedata-horizontal-divider">
+	<app-checkbox-authorize-data-usage-explicitly
+		[parent-form]="formGroup"
+		(onChange)="hasChangedSomething = true"
+		[trigger-upload-observable]="uploadTriggerSubject.asObservable()"
+	></app-checkbox-authorize-data-usage-explicitly>
+	<hr class="mynedata-horizontal-divider">
+	<app-data-types-privacy
+		[trigger-upload-observable]="uploadTriggerSubject.asObservable()"
+		(changeOnce)="hasChangedDataTypePrivacies = true"
+		(changed)="recheckTickPositionEventEmitter.emit()"
+		[refresh-slider]="refreshSlider"
+		[parent-form]="formGroup"
+		[form-group-name-in-parent-form]="fromGroupNameDatatypesPrivacies"
+		(fetchedDataTypesPrivacies)="dataTypesPrivaciesReadyEE.emit()"
+	>
+
+	</app-data-types-privacy>
+	<hr class="mynedata-horizontal-divider">
+	<app-request-issuer-privacy
+		(onChangeOnce)="hasChangedSomething = true"
+		[triggerSave$]="uploadTriggerSubject.asObservable()"
+	></app-request-issuer-privacy>
+	<button
+		mat-raised-button
+		(click)="uploadData()"
+		[disabled]="!hasChangedSomething && !hasChangedDataTypePrivacies"
+	>
+        {{print('privacy-settings-explicit-save-button-text')}}
+    </button>
+</div>

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{data['name']}}'s Settings</h1>
+<mat-dialog-content>
+  <br>
+  <br>
+  <br>
+  Privacy
+  <mat-slider [max]="5" [min]="0" [step]="1" [thumbLabel]="true" [value]="data['privacy']" class="example-margin">
+  </mat-slider>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button disabled>Save</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</mat-dialog-actions>

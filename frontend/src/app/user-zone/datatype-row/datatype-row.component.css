@@ -1,0 +1,68 @@
+.data-type-icon {
+	height: 2.5em;
+	width: auto;
+}
+
+.datatype-privacy-row {
+}
+
+/*
+inspired by https://angular-slider.github.io/ng5-slider/demos#styled-slider
+ */
+/* We need to use ::ng-deep to overcome view encapsulation */
+::ng-deep .custom-slider.first-row .ng5-slider {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+::ng-deep .custom-slider .ng5-slider {
+	margin-top: -0.2em !important;
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-bar {
+	background: grey;
+	height: 2px;
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-pointer {
+	width: 12px;
+	height: 16px;
+	top: auto;
+	/* to remove the default positioning */
+	bottom: 0;
+	margin-left: -2px;
+	background-color: #673AB7;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-pointer:after {
+	display: none;
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-bubble {
+	display: none;
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-tick {
+	width: 2px;
+	height: 15px;
+	margin-left: 3px;
+	border-radius: 0;
+	background: grey;
+	top: -3px;
+}
+
+::ng-deep .custom-slider.first-row .ng5-slider .ng5-slider-tick-legend {
+	top: -45px;
+}
+/*
+end of inspired
+ */
+
+.datatype-privacy-row.margin-top {
+	margin-top: 3em !important;
+}
+
+.not-first-row {
+	height: 3em !important;
+}
+
+.default-privacy-identification {
+	opacity: .6;
+}
+

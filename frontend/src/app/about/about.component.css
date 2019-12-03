@@ -1,0 +1,19 @@
+html *
+{
+   font-family: sans-serif !important;
+}
+
+td
+{
+	height: 230px;
+}
+p 
+{
+	margin-right:10px;
+	margin-left:10px;
+}
+h3
+{
+	margin-right:10px;
+	margin-left:10px;	
+}

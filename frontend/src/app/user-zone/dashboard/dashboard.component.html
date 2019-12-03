@@ -1,0 +1,21 @@
+<!-- thanks https://blog.angularindepth.com/angular-flex-layout-flexbox-and-grid-layout-for-angular-component-6e7c24457b63 -->
+<div fxLayout="row wrap" fxLayoutGap="0" fxLayoutAlign="start" class="container">
+
+	<app-dashboard-widget-score *ngIf="isWidgetActive('my-score')" [fxFlexOrder]="getWidgetPosition('my-score')"></app-dashboard-widget-score>
+
+	<app-dashboard-widget-chart *ngIf="isWidgetActive('my-charts')" [fxFlexOrder]="getWidgetPosition('my-charts')"></app-dashboard-widget-chart>
+
+	<app-dashboard-widget-my-data *ngIf="isWidgetActive('my-shared-data')" [fxFlexOrder]="getWidgetPosition('my-shared-data')"></app-dashboard-widget-my-data>
+
+	<app-dashboard-widget-my-sales *ngIf="isWidgetActive('my-sales')"  [fxFlexOrder]="getWidgetPosition('my-sales')"></app-dashboard-widget-my-sales>
+
+	<app-dashboard-widget-data-sources *ngIf="isWidgetActive('connected-data-sources')" [fxFlexOrder]="getWidgetPosition('connected-data-sources')"></app-dashboard-widget-data-sources>
+
+	<app-dashboard-widget-my-privacy-settings *ngIf="isWidgetActive('my-privacy-settings')" [fxFlexOrder]="getWidgetPosition('my-privacy-settings')"></app-dashboard-widget-my-privacy-settings>
+
+	<app-dashboard-widget-notifications *ngIf="isWidgetActive('requests-and-notifications')" [fxFlexOrder]="getWidgetPosition('requests-and-notifications')"></app-dashboard-widget-notifications>
+
+	<app-dashboard-widget-new-service *ngIf="isWidgetActive('new-service')" [fxFlexOrder]="getWidgetPosition('new-service')"></app-dashboard-widget-new-service>
+</div>
+
+<app-fab-simple [tooltip]="locale.get('add-datasource-floating-fab-button-tooltip')" [click]="openAddDatasourceDialog.bind(this)"></app-fab-simple>

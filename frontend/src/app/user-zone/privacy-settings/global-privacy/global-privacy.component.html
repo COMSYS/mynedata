@@ -1,0 +1,23 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" style="min-height: fit-content" *ngIf="readyToDisplay">
+  <div fxFlex>
+    <h3>{{print('privacy-settings-global-title')}}</h3>
+    <p>{{print('privacy-settings-global-subtext')}}</p>
+  </div>
+  <form [formGroup]="formGroup" fxFlex>
+    <div class="custom-slider predefined-privacy-settings-slider-wrapper" fxLayout>
+      <ng5-slider
+        formControlName="predefinedPrivaciesSlider"
+        *ngIf="refreshSlider"
+        [options]="ng5SliderBaseOptions"
+        (valueChange)="setDatatypesPrivaciesToPredefinedState($event); onChangedSliderValue.emit()"
+        [manualRefresh]="refreshSlider"
+      ></ng5-slider>
+      <ng5-slider
+        formControlName="predefinedPrivaciesSlider"
+        *ngIf="!refreshSlider"
+        [options]="ng5SliderBaseOptions"
+        (valueChange)="setDatatypesPrivaciesToPredefinedState($event); onChangedSliderValue.emit()"
+      ></ng5-slider>
+    </div>
+  </form>
+</div>
