@@ -1,5 +1,7 @@
 # myneData Prototype Implementation
 
+**Warning: This is a research demonstrator. Use for studying and exploration pursoses only; especially, do not use code in production without further vetting.**
+
 This document describes how to set up the myneData demonstrator, which will be hosted locally in a Vagrant virtual machine, and how to set up the myneData prototype natively on a fresh Ubuntu machine.
 Furthermore, we provide general technical information how to interact with the Vagrant VM in case of errors, but this mostly concerns developers.
 
