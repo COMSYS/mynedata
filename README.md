@@ -163,10 +163,3 @@ are implemented. Each function gets `Datasource.attribute` as argument (or more 
 The constraints are implemented in Disjunctive NormalForm where the left side of each `OR` and each `AND` is a single constraint of the form 
 `Datasource.attribute [<,>,=] String/Number` where `[<,>]` is only valid for numbers. 
 So `... WHERE (A.a = b) OR ((B.b = b) OR (C.c = c))` is valid while `... WHERE ((A.a = b) OR (B.b = b)) OR (C.c = c))` is not.
-
-## Testing
-To run all tests in the `test` folder, run
-```
-	./test_all.sh
-```
-from the root directory. The resulting logs and database are stored in the `test_results` folder.
