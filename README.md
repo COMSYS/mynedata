@@ -1,5 +1,7 @@
 # myneData - A User-Centered Data Market - Demonstrator
 
+**Warning: This is a research demonstrator. Use for studying and exploration pursoses only; especially, do not use code in production without further vetting.**
+
 The business model of leading Internet companies is the collection and monetization of user data.
 Meanwhile, this monetization of such sensitive data represents one of the most serious privacy threats.
 Here, economic interests directly clash with demands and rights of individual users.
